@@ -1,1 +1,42 @@
+body {
+  font-size: 10px;
+  background: #f7971e;
+  background: -webkit-linear-gradient(to right, #ffd200, #f7971e); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ffd200, #f7971e);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.input {
+  border-bottom: 1px solid white;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: rgba(255, 255, 255, 0.1);
+  width: 21vw;
+  font-size: 16px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.check {
+  border: 1px solid #ffff;
+  width: 7rem;
+  vertical-align: center;
+  text-align: center;
+  padding-top: 7px;
+}
+
+.check:hover {
+  background-color: #f7971e;
+  border: 1px solid black;
+  color: #ffff;
+}
+
+.image-header {
+  background-color: black;
+  height: 10vh;
+}
