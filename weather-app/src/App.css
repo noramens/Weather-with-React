@@ -4,8 +4,16 @@ body {
   background: -webkit-linear-gradient(to right, #ffd200, #f7971e); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #ffd200, #f7971e);
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
+}
+
+.form {
+  display: flex;
+  margin-top: 2em;
+  height: 2rem;
+  width: 50vw;
 }
 
 .input {
@@ -14,7 +22,7 @@ body {
   border-left: none;
   border-right: none;
   background: rgba(255, 255, 255, 0.1);
-  width: 21vw;
+  width: 70vw;
   font-size: 16px;
 }
 
@@ -24,7 +32,7 @@ input:focus {
 
 .check {
   border: 1px solid #ffff;
-  width: 7rem;
+  width: 35vw;
   vertical-align: center;
   text-align: center;
   padding-top: 7px;
@@ -39,4 +47,40 @@ input:focus {
 .image-header {
   background-color: black;
   height: 10vh;
+}
+
+.status {
+  border: 1px solid black;
+  border-radius: 1rem;
+  min-height: 30vh;
+  vertical-align: center;
+  margin-top: 5rem;
+}
+
+.image {
+  text-align: center;
+  color: #ffff;
+  height: 5vh;
+  background: black;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.name {
+  text-align: center;
+  font-weight: bold;
+  margin: 1rem;
+  font-size: 21px;
+}
+
+.temp {
+  display: flex;
+  justify-content: space-around;
+  margin: 2em;
+}
+
+.description {
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
 }

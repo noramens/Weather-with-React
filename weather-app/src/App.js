@@ -26,7 +26,7 @@ class Form extends React.Component {
   render() {
     return (
       <>
-        <form onSubmit={this.handleCall} style={{ display: 'flex', marginTop: '2em', height: '2rem' }}>
+        <form onSubmit={this.handleCall} className="form">
           <input
             className="input"
             type="text"
@@ -42,9 +42,7 @@ class Form extends React.Component {
             onChange={event => this.setState({ country: event.target.value })}
             placeholder="enter country"
           />
-          <div className="check" style={{ marginRight: '2rem' }}>
-            check weather
-          </div>
+          <div className="check">check weather</div>
         </form>
       </>
     );
@@ -55,11 +53,18 @@ class Status extends React.Component {
   render() {
     return (
       <div className="status">
-        <div>image</div>
-        <div>name of city</div>
-        <div>Minimum Temperature</div>
-        <div>Maximum Temperature</div>
-        <div>Description</div>
+        <div className="image">image</div>
+        <div className="name">name of city</div>
+        <div className="temp">
+          <div>
+            <h1>&deg;F</h1>
+          </div>
+          <div>
+            {' '}
+            <h1>&deg;F</h1>
+          </div>
+        </div>
+        <div className="description">Description</div>
       </div>
     );
   }
