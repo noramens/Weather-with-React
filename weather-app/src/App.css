@@ -36,6 +36,7 @@ input:focus {
   vertical-align: center;
   text-align: center;
   padding-top: 7px;
+  background: #ffd200;
 }
 
 .check:hover {
