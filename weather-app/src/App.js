@@ -13,10 +13,15 @@ class App extends React.Component {
       countryName: null,
       minTemp: null,
       maxTemp: null,
-      description: null
+      description: null,
+      image: null
     };
 
     this.handleCall = this.handleCall.bind(this);
+  }
+
+  calCelsius(temp) {
+    return Math.floor(temp - 273.15);
   }
 
   handleCall = async e => {
@@ -47,17 +52,24 @@ class App extends React.Component {
       sys: { country }
     } = await resp;
 
+    const {
+      weather: {
+        0: { icon }
+      }
+    } = await resp;
+
     const { name } = await resp;
 
     this.setState({
       city: ' ',
       country: ' ',
-      temp: temp,
+      temp: this.calCelsius(temp),
       cityName: name,
       countryName: country,
-      minTemp: temp_min,
-      maxTemp: temp_max,
-      description: description
+      minTemp: this.calCelsius(temp_min),
+      maxTemp: this.calCelsius(temp_max),
+      description: description,
+      image: icon
     });
 
     console.log(resp);
@@ -92,20 +104,29 @@ class App extends React.Component {
         </form>
 
         <div className="status">
-          <div className="image">image</div>
+          <img
+            src={`http://openweathermap.org/img/w/${this.state.image}.png`}
+            alt="weather icon"
+            style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
+          />
           <div className="name">
             {this.state.cityName}, {this.state.countryName}
           </div>
+          <div style={{ textAlign: 'center', marginTop: '5rem' }}>
+            {' '}
+            <h1>{this.state.temp}&deg;C</h1>{' '}
+          </div>
+
           <div className="temp">
             <div>
-              <h1>&deg;{this.state.minTemp}</h1>
+              <h1>{this.state.minTemp}&deg;C</h1>
             </div>
             <div>
               {' '}
-              <h1>&deg; {this.state.maxTemp}</h1>
+              <h1>{this.state.maxTemp}&deg;C</h1>
             </div>
           </div>
-          <div style={{ textAlign: 'center' }}>{this.state.temp}</div>
+
           <div className="description">{this.state.description}</div>
         </div>
       </>

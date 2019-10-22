@@ -17,32 +17,33 @@ body {
 }
 
 .input {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid black;
   border-top: none;
   border-left: none;
   border-right: none;
-  background: rgba(255, 255, 255, 0.1);
+  background: transparent;
   width: 70vw;
   font-size: 16px;
 }
 
 input:focus {
   outline: none;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .check {
-  border: 1px solid #ffff;
   width: 35vw;
-  vertical-align: center;
-  text-align: center;
-  padding-top: 7px;
   background: #ffd200;
+  border: 0;
+  font-weight: bold;
+}
+
+.check:focus {
+  outline: none;
 }
 
 .check:hover {
   background-color: #f7971e;
-  border: 1px solid black;
-  color: #ffff;
 }
 
 .image-header {
@@ -51,10 +52,7 @@ input:focus {
 }
 
 .status {
-  border: 1px solid black;
-  border-radius: 1rem;
-  min-height: 30vh;
-  vertical-align: center;
+  min-height: 70vh;
   margin-top: 5rem;
 }
 
@@ -77,11 +75,12 @@ input:focus {
 .temp {
   display: flex;
   justify-content: space-around;
-  margin: 2em;
+  margin: 4rem 2em 0 2rem;
 }
 
 .description {
   text-align: center;
   font-weight: bold;
   font-size: 16px;
+  margin-top: 6rem;
 }
