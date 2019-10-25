@@ -30,35 +30,15 @@ class App extends React.Component {
       `http://api.openweathermap.org/data/2.5/weather?q=${this.state.city},${this.state.country}k&APPID=ae4267c858ee38a20b390a044fabdd14`
     );
     const resp = await url.json();
-    const {
-      main: { temp }
-    } = await resp;
 
     const {
-      main: { temp_max }
-    } = await resp;
-
-    const {
-      main: { temp_min }
-    } = await resp;
-
-    const {
+      main: { temp, temp_max, temp_min },
       weather: {
-        0: { description }
-      }
-    } = await resp;
-
-    const {
-      sys: { country }
-    } = await resp;
-
-    const {
-      weather: {
-        0: { icon }
-      }
-    } = await resp;
-
-    const { name } = await resp;
+        0: { description, icon }
+      },
+      sys: { country },
+      name
+    } = resp;
 
     this.setState({
       city: ' ',
@@ -84,7 +64,7 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <form onSubmit={this.handleCall} className="form">
+        <nav className="form">
           <input
             type="text"
             value={this.state.city}
@@ -100,35 +80,49 @@ class App extends React.Component {
             className="input"
             style={{ marginRight: '1rem', marginLeft: '1rem' }}
           />
-          <button className="check">check</button>
-        </form>
+          <button onClick={this.handleCall} className="check">
+            check
+          </button>
+        </nav>
 
-        <div className="status">
-          <img
-            src={`http://openweathermap.org/img/w/${this.state.image}.png`}
-            alt="weather icon"
-            style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
-          />
-          <div className="name">
-            {this.state.cityName}, {this.state.countryName}
-          </div>
-          <div style={{ textAlign: 'center', marginTop: '5rem' }}>
-            {' '}
-            <h1>{this.state.temp}&deg;C</h1>{' '}
-          </div>
+        <main className="status">
+          {this.state.image && (
+            <img
+              src={`http://openweathermap.org/img/w/${this.state.image}.png`}
+              alt="weather icon"
+              style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
+            />
+          )}
+
+          {this.cityName && (
+            <div className="name">
+              {this.state.cityName}, {this.state.countryName}
+            </div>
+          )}
+
+          {this.state.temp && (
+            <div style={{ textAlign: 'center', marginTop: '5rem' }}>
+              {' '}
+              <h1>{this.state.temp}&deg;C</h1>{' '}
+            </div>
+          )}
 
           <div className="temp">
-            <div>
-              <h1>{this.state.minTemp}&deg;C</h1>
-            </div>
-            <div>
-              {' '}
-              <h1>{this.state.maxTemp}&deg;C</h1>
-            </div>
+            {this.state.minTemp && (
+              <div>
+                <h1>{this.state.minTemp}&deg;C</h1>
+              </div>
+            )}
+            {this.state.maxTemp && (
+              <div>
+                {' '}
+                <h1>{this.state.maxTemp}&deg;C</h1>
+              </div>
+            )}
           </div>
 
-          <div className="description">{this.state.description}</div>
-        </div>
+          {this.state.description && <div className="description">{this.state.description}</div>}
+        </main>
       </>
     );
   }
