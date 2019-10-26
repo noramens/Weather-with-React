@@ -14,10 +14,21 @@ class App extends React.Component {
       minTemp: null,
       maxTemp: null,
       description: null,
-      image: null
+      image: null,
+      lon: null,
+      lat: null
     };
 
     this.handleCall = this.handleCall.bind(this);
+    this.currentLocation = this.currentLocation.bind(this);
+  }
+
+  currentLocation() {
+    function showPosition(position) {
+      console.log('longitude : ' + position.coords.longitude + ' latitude: ' + position.coords.latitude);
+    }
+
+    return navigator.geolocation.getCurrentPosition(showPosition);
   }
 
   calCelsius(temp) {
@@ -27,12 +38,14 @@ class App extends React.Component {
   handleCall = async e => {
     e.preventDefault();
     const url = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${this.state.city},${this.state.country}k&APPID=ae4267c858ee38a20b390a044fabdd14`
+      `http://api.openweathermap.org/data/2.5/weather?q=${this.state.lat},${this.state.lon}&APPID=ae4267c858ee38a20b390a044fabdd14`
+      // `http://api.openweathermap.org/data/2.5/weather?q=${this.state.city},${this.state.country}k&APPID=ae4267c858ee38a20b390a044fabdd14`
     );
     const resp = await url.json();
 
     const {
       main: { temp, temp_max, temp_min },
+      coord: { lon, lat },
       weather: {
         0: { description, icon }
       },
@@ -49,7 +62,9 @@ class App extends React.Component {
       minTemp: this.calCelsius(temp_min),
       maxTemp: this.calCelsius(temp_max),
       description: description,
-      image: icon
+      image: icon,
+      lon: lon,
+      lat: lat
     });
 
     console.log(resp);
@@ -64,6 +79,10 @@ class App extends React.Component {
   render() {
     return (
       <>
+        <div>
+          {this.currentLocation()} {this.state.lon} {this.state.lat}{' '}
+        </div>
+
         <nav className="form">
           <input
             type="text"
