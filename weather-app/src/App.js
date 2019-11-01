@@ -1,4 +1,5 @@
 import React from 'react';
+import Input from './Input';
 import './App.css';
 
 class App extends React.Component {
@@ -23,23 +24,35 @@ class App extends React.Component {
     this.currentLocation = this.currentLocation.bind(this);
   }
 
-  currentLocation() {
-    function showPosition(position) {
-      console.log('longitude : ' + position.coords.longitude + ' latitude: ' + position.coords.latitude);
-    }
+  // componentDidMount() {
+  //   this.currentLocation();
+  // }
 
+  currentLocation = () => {
+    const showPosition = position => {
+      console.log('longitude : ' + position.coords.longitude + ' latitude: ' + position.coords.latitude);
+      this.setState({ lon: position.coords.longitude, lat: position.coords.latitude });
+    };
     return navigator.geolocation.getCurrentPosition(showPosition);
-  }
+  };
 
   calCelsius(temp) {
     return Math.floor(temp - 273.15);
   }
 
+  setCity = city => {
+    this.setState({ city: city });
+  };
+
+  setCountry = country => {
+    this.setState({ country: country });
+  };
+
   handleCall = async e => {
     e.preventDefault();
     const url = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${this.state.lat},${this.state.lon}&APPID=ae4267c858ee38a20b390a044fabdd14`
-      // `http://api.openweathermap.org/data/2.5/weather?q=${this.state.city},${this.state.country}k&APPID=ae4267c858ee38a20b390a044fabdd14`
+      // `http://api.openweathermap.org/data/2.5/weather?lat=${this.state.lat}&lon=${this.state.lon}&APPID=ae4267c858ee38a20b390a044fabdd14`
+      `http://api.openweathermap.org/data/2.5/weather?q=${this.state.city},${this.state.country}&APPID=ae4267c858ee38a20b390a044fabdd14`
     );
     const resp = await url.json();
 
@@ -79,30 +92,17 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <div>
+        {/* <div>
           {this.currentLocation()} {this.state.lon} {this.state.lat}{' '}
-        </div>
+        </div> */}
 
-        <nav className="form">
-          <input
-            type="text"
-            value={this.state.city}
-            onChange={event => this.setState({ city: event.target.value })}
-            placeholder="enter city"
-            className="input"
-          />
-          <input
-            type="text"
-            value={this.state.country}
-            onChange={event => this.setState({ country: event.target.value })}
-            placeholder="enter country"
-            className="input"
-            style={{ marginRight: '1rem', marginLeft: '1rem' }}
-          />
-          <button onClick={this.handleCall} className="check">
-            check
-          </button>
-        </nav>
+        <Input
+          city={this.state.city}
+          country={this.state.country}
+          handleCall={this.handleCall}
+          setCity={this.setCity}
+          setCountry={this.setCountry}
+        />
 
         <main className="status">
           {this.state.image && (
