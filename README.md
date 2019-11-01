@@ -9,10 +9,9 @@ These instructions will get you a copy of the project up and running on your loc
 ### Installing
 
 Get a copy of this project on your machine using:
-
-```
-git clone https://github.com/noraboamaah/Weather-with-React.git
-```
+1. ``` git clone https://github.com/noraboamaah/Weather-with-React.git ``` to clone unto your machine
+2. cd into the repo
+3. Get your hands dirty with some code
 
 ## How it works
 
