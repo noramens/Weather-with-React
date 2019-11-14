@@ -22,10 +22,15 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.currentLocation();
+  }
+
   currentLocation = () => {
     const showPosition = position => {
       console.log('longitude : ' + position.coords.longitude + ' latitude: ' + position.coords.latitude);
       this.setState({ lon: position.coords.longitude, lat: position.coords.latitude });
+      this.handleCall();
     };
     return navigator.geolocation.getCurrentPosition(showPosition);
   };
@@ -43,12 +48,10 @@ class App extends React.Component {
   };
 
   handleCall = async e => {
-    e.preventDefault();
     const url = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${this.state.city},${this.state.country}&APPID=ae4267c858ee38a20b390a044fabdd14`
+      `http://api.openweathermap.org/data/2.5/weather?lat=${this.state.lat}&lon=${this.state.lon}&APPID=ae4267c858ee38a20b390a044fabdd14`
     );
     const resp = await url.json();
-
     const {
       main: { temp, temp_max, temp_min },
       coord: { lon, lat },
@@ -72,14 +75,6 @@ class App extends React.Component {
       lon: lon,
       lat: lat
     });
-
-    console.log(resp);
-    console.log(temp);
-    console.log(temp_max);
-    console.log(temp_min);
-    console.log(description);
-    console.log(name);
-    console.log(country);
   };
 
   render() {
